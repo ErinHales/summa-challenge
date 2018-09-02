@@ -43,15 +43,19 @@ export default {
         username: this.username,
         email: this.email,
         password: this.password1
-      }
+      };
       if (this.password1 === this.password2) {
         axios.post("/api/newuser", userData).then(response => {
-          store.commit({
+          this.$store.commit({
             type: "setUserData",
             data: response.data[0]
           })
+          this.$store.commit({
+            type: "toggleLogin",
+            toggle: true
+          })
           window.location.hash = "#/users";
-        })
+        });
       }
     }
   }

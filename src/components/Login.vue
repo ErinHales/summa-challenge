@@ -14,22 +14,22 @@
 </template>
 
 <script>
-import NavBar from "./NavBar";
-import axios from "axios";
+import NavBar from './NavBar'
+import axios from 'axios'
 
 export default {
-  name: "Login",
-  data() {
+  name: 'Login',
+  data () {
     return {
-      username: "",
-      password: ""
-    };
+      username: '',
+      password: ''
+    }
   },
   components: {
     NavBar
   },
   methods: {
-    login() {
+    login () {
       axios.get(`/api/user/${this.username}`).then(response => {
         if (response.data[0]) {
           if (response.data[0].password === this.password) {
@@ -37,7 +37,11 @@ export default {
               type: 'setUserData',
               data: response.data[0]
             })
-            window.location.hash = "#/users";
+            this.$store.commit({
+              type: 'toggleLogin',
+              toggle: true
+            })
+            window.location.hash = '#/users'
           } else {
             alert(
               'Username or password is incorrect. Try again or go to sign up page.'
@@ -49,10 +53,10 @@ export default {
           //   alert('Password is not correct, try again.')
           // }
         }
-      });
+      })
     }
   }
-};
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
