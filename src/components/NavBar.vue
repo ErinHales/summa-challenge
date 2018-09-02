@@ -6,17 +6,16 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'NavBar',
-  // data () {
-  //   return {
-  //     msg: 'Welcome to the Nav Bar'
-  //   }
-  // },
   props: ['title'],
   methods: {
     logout () {
-      window.location.hash = '#/'
+      axios.put('/api/logout').then(() => {
+        window.location.hash = '#/'
+      })
     }
   }
 }

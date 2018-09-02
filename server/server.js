@@ -4,7 +4,8 @@ const massive = require("massive")
 const session = require("express-session")
 require("dotenv").config()
 
-const loginCntrl = require("./controllers/login_controller.js");
+const loginCntrl = require("./controllers/login_controller");
+const userCntrl = require("./controllers/user_controller");
 
 const app = express()
 app.use(bodyParser.json())
@@ -26,10 +27,14 @@ app.use(session({
   resave: false,
 }));
 
-// app.post('/api/newuser', loginCntrl.signUp)
+// Login, sign up, logout
 app.post('/api/newuser', loginCntrl.signUp)
-
 app.get('/api/user/:email', loginCntrl.login)
+app.put('/api/logout', loginCntrl.logout)
+
+// Users
+app.get('/api/users', userCntrl.getUsers)
+app.get('/api/user', userCntrl.getUser)
 
 const port = SERVER_PORT;
 

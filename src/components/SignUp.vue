@@ -19,25 +19,25 @@
 </template>
 
 <script>
-import NavBar from './NavBar'
-import axios from 'axios'
+import NavBar from "./NavBar";
+import axios from "axios";
 
 export default {
-  name: 'SignUp',
-  data () {
+  name: "SignUp",
+  data() {
     return {
-      name: '',
-      username: '',
-      email: '',
-      password1: '',
-      password2: ''
-    }
+      name: "",
+      username: "",
+      email: "",
+      password1: "",
+      password2: ""
+    };
   },
   components: {
     NavBar
   },
   methods: {
-    signup () {
+    signup() {
       let userData = {
         name: this.name,
         username: this.username,
@@ -45,13 +45,17 @@ export default {
         password: this.password1
       }
       if (this.password1 === this.password2) {
-        axios.post('/api/newuser', userData).then(response => {
-          window.location.hash = '#/users'
+        axios.post("/api/newuser", userData).then(response => {
+          store.commit({
+            type: "setUserData",
+            data: response.data[0]
+          })
+          window.location.hash = "#/users";
         })
       }
     }
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -67,7 +71,7 @@ form {
   width: 50vw;
   justify-content: center;
   align-items: center;
-  background-color: #C4C4C4;
+  background-color: #c4c4c4;
   padding: 10px 30px;
   margin: 30px 0px;
 }
@@ -83,7 +87,7 @@ input {
   width: 40%;
 }
 button {
-  background-color: #0A8F70;
+  background-color: #0a8f70;
   padding: 10px;
   margin: 30px 0px;
   outline: none;

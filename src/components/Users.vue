@@ -2,6 +2,10 @@
   <div class="users">
     <NavBar title="Users" />
     <div class="displayUsers">
+      <h2>Logged In User</h2>
+      <div class="loggedInUser">
+        <User :user="user" />
+      </div>
       <User v-for='(user, i) in users' :key='i' :user='user' />
     </div>
   </div>
@@ -10,13 +14,24 @@
 <script>
 import NavBar from './NavBar'
 import User from './User'
+import axios from 'axios'
 
 export default {
   name: 'users',
   data () {
     return {
-      users: [{name: 'jj', username: 'pb & jj', email: 'jj@gmail.com'}, {name: 'User1', username: 'Username1', email: 'user1@gmail.com'}, {name: 'User2', username: 'Username2', email: 'user2@gmail.com'}, {name: 'User2', username: 'Username2', email: 'user2@gmail.com'}, {name: 'User3', username: 'Username3', email: 'user3@gmail.com'}]
+      users: []
     }
+  },
+  computed: {
+    user () {
+      return this.$store.state.user
+    }
+  },
+  mounted () {
+    axios.get('/api/users').then(response => {
+      this.users = response.data
+    })
   },
   components: {
     NavBar,
@@ -55,5 +70,14 @@ input {
 }
 h5 {
   margin-bottom: 15px;
+}
+.loggedInUser {
+  font-weight: bold;
+  color: pink;
+}
+h2 {
+  text-align: center;
+  position: relative;
+  top: 30px;
 }
 </style>

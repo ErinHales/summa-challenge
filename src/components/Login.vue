@@ -14,28 +14,34 @@
 </template>
 
 <script>
-import NavBar from './NavBar'
-import axios from 'axios'
+import NavBar from "./NavBar";
+import axios from "axios";
 
 export default {
-  name: 'Login',
-  data () {
+  name: "Login",
+  data() {
     return {
-      username: '',
-      password: ''
-    }
+      username: "",
+      password: ""
+    };
   },
   components: {
     NavBar
   },
   methods: {
-    login () {
+    login() {
       axios.get(`/api/user/${this.username}`).then(response => {
         if (response.data[0]) {
           if (response.data[0].password === this.password) {
-            window.location.hash = '#/users'
+            this.$store.commit({
+              type: 'setUserData',
+              data: response.data[0]
+            })
+            window.location.hash = "#/users";
           } else {
-            alert('Username or password is incorrect. Try again or go to sign up page.')
+            alert(
+              'Username or password is incorrect. Try again or go to sign up page.'
+            )
           }
           // if (!response.data[0]) {
           //   alert('Username does not exist. Try again or go to sign up page.')
@@ -43,10 +49,10 @@ export default {
           //   alert('Password is not correct, try again.')
           // }
         }
-      })
+      });
     }
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -62,7 +68,7 @@ form {
   width: 50vw;
   justify-content: center;
   align-items: center;
-  background-color: #C4C4C4;
+  background-color: #c4c4c4;
   padding: 30px;
   margin-top: 50px;
 }
@@ -78,7 +84,7 @@ input {
   width: 40%;
 }
 button {
-  background-color: #0A8F70;
+  background-color: #0a8f70;
   padding: 10px;
   margin: 30px 0px;
   outline: none;

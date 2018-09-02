@@ -11,11 +11,6 @@ import NavBar from './NavBar'
 
 export default {
   name: 'SignUp',
-  // data () {
-  //   return {
-  //     msg: 'Welcome to the user component.'
-  //   }
-  // },
   props: ['user'],
   components: {
     NavBar
@@ -28,5 +23,6 @@ export default {
 .user {
   text-align: center;
   margin: 50px;
+  font-weight: 100;
 }
 </style>
