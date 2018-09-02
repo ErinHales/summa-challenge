@@ -6,11 +6,11 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from "axios";
 
 export default {
-  name: 'NavBar',
-  props: ['title'],
+  name: "NavBar",
+  props: ["title"],
   computed: {
     loggedIn() {
       return this.$store.state.loggedIn;
@@ -18,16 +18,16 @@ export default {
   },
   methods: {
     logout() {
-      axios.put('/api/logout').then(() => {
-        window.location.hash = '#/';
-      })
+      axios.put("/api/logout").then(() => {
+        window.location.hash = "#/";
+      });
       this.$store.commit({
-        type: 'deleteUserData'
-      })
+        type: "deleteUserData"
+      });
       this.$store.commit({
-        type: 'toggleLogin',
+        type: "toggleLogin",
         toggle: false
-      })
+      });
     }
   }
 };
@@ -43,15 +43,16 @@ export default {
 }
 h2 {
   text-align: center;
+  position: absolute;
+  top: 20px;
+  width: 100vw;
   font-size: 20px;
 }
 button {
   float: right;
-  position: relative;
-  bottom: 40px;
   background: transparent;
   border: none;
-  margin-right: 20px;
+  margin: 60px 40px;
   outline: none;
 }
 button:hover {

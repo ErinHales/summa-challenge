@@ -7,8 +7,8 @@
       <p>Email: {{email}}</p>
       <h3>Is this information correct?</h3>
       <div>
-        <button @click="signup">Confirm</button>
-        <button @click="popUp">Nope</button>
+        <v-btn block color="white" @click="signup">Confirm</v-btn>
+        <v-btn block color="white" @click="popUp">Nope</v-btn>
       </div>
     </div>
   </div>
@@ -16,7 +16,7 @@
 
 <script>
 export default {
-  name: "Modal",
+  name: 'Modal',
   props: ['name', 'username', 'email', 'signup', 'popUp']
 }
 </script>
@@ -32,10 +32,12 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1000;
 }
 .modal > div {
   width: 40vw;
   background-color: #0a8f70;
   padding: 50px;
+  text-align: center;
 }
 </style>

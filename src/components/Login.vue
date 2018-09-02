@@ -1,14 +1,26 @@
 <template>
   <div class="login">
     <NavBar title="Login" />
-    <form action="" @submit.prevent="login">
-      <h3>Username</h3>
-      <input type="text" v-model="username">
-      <h3>Password</h3>
-      <input type="text" v-model="password">
-      <button type="submit">LOG IN</button>
-      <h5>Don't have an account? <router-link to="/signup">Sign Up</router-link></h5>
-    </form>
+    <v-form action="" @submit.prevent="login">
+      <v-text-field 
+        color="#0a8f70" 
+        type="text" 
+        v-model="username" 
+        label="Email"
+        counter="50"
+        :rules="[() => !!username || 'This field is required']"
+        required></v-text-field>
+      <v-text-field 
+        color="#0a8f70" 
+        type="text" 
+        v-model="password" 
+        label="Password"
+        counter="50"
+        :rules="[() => !!password || 'This field is required']"
+        required></v-text-field>
+      <v-btn block type="submit" color="#0a8f70">LOG IN</v-btn>
+      <h5>Don't have an account? <router-link to="/signup" class="link">Sign Up</router-link></h5>
+    </v-form>
     <!-- <router-link to="/users">Login</router-link> -->
   </div>
 </template>
@@ -31,7 +43,9 @@ export default {
   methods: {
     login () {
       axios.get(`/api/user/${this.username}`).then(response => {
-        if (response.data[0]) {
+        if (!response.data[0]) {
+          alert('Username does not exist. Try again or go to sign up page.')
+        } else {
           if (response.data[0].password === this.password) {
             this.$store.commit({
               type: 'setUserData',
@@ -43,15 +57,8 @@ export default {
             })
             window.location.hash = '#/users'
           } else {
-            alert(
-              'Username or password is incorrect. Try again or go to sign up page.'
-            )
+            alert('Password is not correct, try again.')
           }
-          // if (!response.data[0]) {
-          //   alert('Username does not exist. Try again or go to sign up page.')
-          // } else {
-          //   alert('Password is not correct, try again.')
-          // }
         }
       })
     }
@@ -100,5 +107,8 @@ button:hover {
 }
 h5 {
   margin-bottom: 70px;
+}
+.link {
+  color: black;
 }
 </style>

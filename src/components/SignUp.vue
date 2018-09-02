@@ -2,30 +2,62 @@
   <div class="signup">
     <NavBar title="Sign Up" />
     <Modal v-if="modal" :name="name" :username="username" :email="email" :signup="signup" :popUp="popUp" />
-    <form action="" @submit.prevent="popUp">
-      <h3>Name</h3>
-      <input type="text" v-model="name">
-      <h3>Username</h3>
-      <input type="text" v-model="username">
-      <h3>Email Address</h3>
-      <input type="text" v-model="email">
-      <h3>Password</h3>
-      <input type="text" v-model="password1">
-      <h3>Confirm Password</h3>
-      <input type="text" v-model="password2">
-      <button type="submit">Create Account</button>
-      <h5>Already have an account? <router-link to="/">Login</router-link></h5>
-    </form>
+    <v-form action="" @submit.prevent="popUp">
+      <v-text-field 
+        color="#0a8f70" 
+        type="text" 
+        v-model="name" 
+        label="Name"
+        counter="50"
+        :rules="[rules.required]"
+        required></v-text-field>
+      <v-text-field 
+        color="#0a8f70" 
+        type="text" 
+        v-model="username" 
+        label="Username"
+        counter="50"
+        :rules="[rules.required]"
+        required></v-text-field>
+      <v-text-field 
+        color="#0a8f70" 
+        type="text" 
+        v-model="email" 
+        label="Email"
+        counter="50"
+        :rules="[rules.required]"
+        required></v-text-field>
+      <v-text-field 
+        color="#0a8f70" 
+        type="text" 
+        v-model="password1" 
+        label="Password"
+        counter="40"
+        :rules="[rules.required, rules.min]"
+        hint="At least 12 characters"
+        required></v-text-field>
+      <v-text-field 
+        color="#0a8f70"
+        type="text" 
+        v-model="password2" 
+        label="Confirm Password"
+        counter="40"
+        :rules="[rules.required, rules.passwordMatch]"
+        hint="At least 12 characters"
+        required></v-text-field>
+      <v-btn block color="#0a8f70" type="submit">Create Account</v-btn>
+      <h5>Already have an account? <router-link to="/" class="link">Login</router-link></h5>
+    </v-form>
   </div>
 </template>
 
 <script>
-import NavBar from './NavBar'
-import Modal from './Modal'
-import axios from 'axios'
+import NavBar from "./NavBar";
+import Modal from "./Modal";
+import axios from "axios";
 
 export default {
-  name: 'SignUp',
+  name: "SignUp",
   data() {
     return {
       name: '',
@@ -33,7 +65,13 @@ export default {
       email: '',
       password1: '',
       password2: '',
-      modal: false
+      modal: false,
+      rules: {
+        required: value => !!value || 'Required.',
+        min: v => v.length >= 12 || 'Min 12 characters',
+        passwordMatch: v => v === this.password1 || 'Passwords do not match',
+        email: v => v.charAt('@') >= -1 || 'Invalid Email'
+      }
     };
   },
   components: {
@@ -41,29 +79,36 @@ export default {
     Modal
   },
   methods: {
-    signup () {
+    signup() {
       let userData = {
         name: this.name,
         username: this.username,
         email: this.email,
         password: this.password1
       };
-      if (this.name && this.username && this.email && this.password1 && this.password1 === this.password2 && this.password1.length >= 12) {
-        axios.post('/api/newuser', userData).then(response => {
+      if (
+        this.name &&
+        this.username &&
+        this.email &&
+        this.password1 &&
+        this.password1 === this.password2 &&
+        this.password1.length >= 12
+      ) {
+        axios.post("/api/newuser", userData).then(response => {
           this.$store.commit({
-            type: 'setUserData',
+            type: "setUserData",
             data: response.data[0]
-          })
+          });
           this.$store.commit({
-            type: 'toggleLogin',
+            type: "toggleLogin",
             toggle: true
-          })
-          window.location.hash = '#/users';
+          });
+          window.location.hash = "#/users";
         });
       }
     },
-    popUp () {
-      this.modal = !this.modal
+    popUp() {
+      this.modal = !this.modal;
     }
   }
 };
@@ -110,5 +155,8 @@ button:hover {
 }
 h5 {
   margin-bottom: 15px;
+}
+.link {
+  color: black;
 }
 </style>
