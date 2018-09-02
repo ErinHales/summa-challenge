@@ -13,8 +13,10 @@ export const store = new Vuex.Store({
       state.user = Object.assign({}, state.user, payload.data)
     },
     toggleLogin (state, payload) {
-      // state.loggedIn = Object.assign({}, state.loggedIn, payload.toggle)
       state.loggedIn = payload.toggle
+    },
+    deleteUserData (state) {
+      state.user = {}
     }
   }
 })

@@ -1,7 +1,8 @@
 <template>
   <div class="signup">
     <NavBar title="Sign Up" />
-    <form action="" @submit.prevent="signup">
+    <Modal v-if="modal" :name="name" :username="username" :email="email" :signup="signup" :popUp="popUp" />
+    <form action="" @submit.prevent="popUp">
       <h3>Name</h3>
       <input type="text" v-model="name">
       <h3>Username</h3>
@@ -19,44 +20,50 @@
 </template>
 
 <script>
-import NavBar from "./NavBar";
-import axios from "axios";
+import NavBar from './NavBar'
+import Modal from './Modal'
+import axios from 'axios'
 
 export default {
-  name: "SignUp",
+  name: 'SignUp',
   data() {
     return {
-      name: "",
-      username: "",
-      email: "",
-      password1: "",
-      password2: ""
+      name: '',
+      username: '',
+      email: '',
+      password1: '',
+      password2: '',
+      modal: false
     };
   },
   components: {
-    NavBar
+    NavBar,
+    Modal
   },
   methods: {
-    signup() {
+    signup () {
       let userData = {
         name: this.name,
         username: this.username,
         email: this.email,
         password: this.password1
       };
-      if (this.password1 === this.password2) {
-        axios.post("/api/newuser", userData).then(response => {
+      if (this.name && this.username && this.email && this.password1 && this.password1 === this.password2 && this.password1.length >= 12) {
+        axios.post('/api/newuser', userData).then(response => {
           this.$store.commit({
-            type: "setUserData",
+            type: 'setUserData',
             data: response.data[0]
           })
           this.$store.commit({
-            type: "toggleLogin",
+            type: 'toggleLogin',
             toggle: true
           })
-          window.location.hash = "#/users";
+          window.location.hash = '#/users';
         });
       }
+    },
+    popUp () {
+      this.modal = !this.modal
     }
   }
 };

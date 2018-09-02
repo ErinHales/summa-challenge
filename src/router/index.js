@@ -21,7 +21,16 @@ export default new Router({
     {
       path: '/users',
       name: 'Users',
-      component: Users
+      component: Users,
+      beforeRouteEnter: checkAuth
     }
   ]
 })
+
+function checkAuth(to, from, next) {
+  if (!this.$store.state.loggedIn) {
+    next('/login')  // they are not authorized, so redirect to login
+  } else {
+    next() // we are authorized, continue on to the requested route
+  }
+}
