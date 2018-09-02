@@ -11,11 +11,11 @@ import NavBar from './NavBar'
 
 export default {
   name: 'SignUp',
-  data () {
-    return {
-      msg: 'Welcome to the user component.'
-    }
-  },
+  // data () {
+  //   return {
+  //     msg: 'Welcome to the user component.'
+  //   }
+  // },
   props: ['user'],
   components: {
     NavBar

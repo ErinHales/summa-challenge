@@ -3,15 +3,15 @@
     <NavBar title="Sign Up" />
     <form action="" @submit.prevent="signup">
       <h3>Name</h3>
-      <input type="text">
+      <input type="text" v-model="name">
       <h3>Username</h3>
-      <input type="text">
+      <input type="text" v-model="username">
       <h3>Email Address</h3>
-      <input type="text">
+      <input type="text" v-model="email">
       <h3>Password</h3>
-      <input type="text">
+      <input type="text" v-model="password1">
       <h3>Confirm Password</h3>
-      <input type="text">
+      <input type="text" v-model="password2">
       <button type="submit">Create Account</button>
       <h5>Already have an account? <router-link to="/">Login</router-link></h5>
     </form>
@@ -20,12 +20,17 @@
 
 <script>
 import NavBar from './NavBar'
+import axios from 'axios'
 
 export default {
   name: 'SignUp',
   data () {
     return {
-      msg: 'Welcome to the sign up page.'
+      name: '',
+      username: '',
+      email: '',
+      password1: '',
+      password2: ''
     }
   },
   components: {
@@ -33,7 +38,17 @@ export default {
   },
   methods: {
     signup () {
-      window.location.hash = '#/users'
+      let userData = {
+        name: this.name,
+        username: this.username,
+        email: this.email,
+        password: this.password1
+      }
+      if (this.password1 === this.password2) {
+        axios.post('/api/newuser', userData).then(response => {
+          window.location.hash = '#/users'
+        })
+      }
     }
   }
 }

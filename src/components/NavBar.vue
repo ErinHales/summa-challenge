@@ -8,11 +8,11 @@
 <script>
 export default {
   name: 'NavBar',
-  data () {
-    return {
-      msg: 'Welcome to the Nav Bar'
-    }
-  },
+  // data () {
+  //   return {
+  //     msg: 'Welcome to the Nav Bar'
+  //   }
+  // },
   props: ['title'],
   methods: {
     logout () {

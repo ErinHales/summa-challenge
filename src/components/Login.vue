@@ -1,7 +1,6 @@
 <template>
   <div class="login">
     <NavBar title="Login" />
-    <h2>{{msg}}</h2>
     <form action="" @submit.prevent="login">
       <h3>Username</h3>
       <input type="text" v-model="username">
@@ -16,6 +15,7 @@
 
 <script>
 import NavBar from './NavBar'
+import axios from 'axios'
 
 export default {
   name: 'Login',
@@ -30,7 +30,12 @@ export default {
   },
   methods: {
     login () {
-      window.location.hash = '#/users'
+      axios.get(`/api/user/${this.email}`).then(response => {
+        console.log(response)
+        if (response.data.password === this.password) {
+          window.location.hash = '#/users'
+        }
+      })
     }
   }
 }
@@ -51,6 +56,7 @@ form {
   align-items: center;
   background-color: #C4C4C4;
   padding: 30px;
+  margin-top: 50px;
 }
 h3 {
   font-weight: 200;
