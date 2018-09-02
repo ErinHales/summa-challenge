@@ -30,10 +30,18 @@ export default {
   },
   methods: {
     login () {
-      axios.get(`/api/user/${this.email}`).then(response => {
-        console.log(response)
-        if (response.data.password === this.password) {
-          window.location.hash = '#/users'
+      axios.get(`/api/user/${this.username}`).then(response => {
+        if (response.data[0]) {
+          if (response.data[0].password === this.password) {
+            window.location.hash = '#/users'
+          } else {
+            alert('Username or password is incorrect. Try again or go to sign up page.')
+          }
+          // if (!response.data[0]) {
+          //   alert('Username does not exist. Try again or go to sign up page.')
+          // } else {
+          //   alert('Password is not correct, try again.')
+          // }
         }
       })
     }
