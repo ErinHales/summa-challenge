@@ -6,31 +6,31 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from 'axios'
 
 export default {
-  name: "NavBar",
-  props: ["title"],
+  name: 'NavBar',
+  props: ['title'],
   computed: {
-    loggedIn() {
-      return this.$store.state.loggedIn;
+    loggedIn () {
+      return this.$store.state.loggedIn
     }
   },
   methods: {
-    logout() {
-      axios.put("/api/logout").then(() => {
-        window.location.hash = "#/";
-      });
+    logout () {
+      axios.put('/api/logout').then(() => {
+        window.location.hash = '#/'
+      })
       this.$store.commit({
-        type: "deleteUserData"
-      });
+        type: 'deleteUserData'
+      })
       this.$store.commit({
-        type: "toggleLogin",
+        type: 'toggleLogin',
         toggle: false
-      });
+      })
     }
   }
-};
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

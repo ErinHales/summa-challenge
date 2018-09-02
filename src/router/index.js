@@ -3,56 +3,59 @@ import Router from 'vue-router'
 import Login from '@/components/Login'
 import SignUp from '@/components/SignUp'
 import Users from '@/components/Users'
+import axios from 'axios'
 
 Vue.use(Router)
 
-const router = new Router({
+let router = new Router({
   routes: [
     {
       path: '/',
       name: 'Login',
-      component: Login
-      // meta: {requiresAuth: false}
+      component: Login,
+      meta: { requiresAuth: false }
     },
     {
       path: '/signup',
       name: 'SignUp',
-      component: SignUp
-      // meta: {requiresAuth: false}
+      component: SignUp,
+      meta: { requiresAuth: false }
     },
     {
       path: '/users',
       name: 'Users',
       component: Users,
       // beforeRouteEnter: checkAuth
-      // meta: {requiresAuth: true}
+      meta: { requiresAuth: true }
     }
   ]
-});
+})
 
-export default router;
+// route guard
+router.beforeEach((to, from, next) => {
+  axios.get('/api/user') // wait for user to be determined
+    .then(user => {
+      if ( // Only allow logged in users
+        to.meta.hasOwnProperty('requiresAuth') &&
+        to.meta.requiresAuth === true
+      ) {
+        if (!user.data) { // Not a user, redirect to home page, otherwise continue
+          next({
+            path: '/'
+          })
+        } else {
+          next()
+        }
+      } else { // Hander for views assessable to all
+        next()
+      }
+    })
+    .catch(error => {
+      console.log(error)
+      next({
+        path: '/'
+      })
+    })
+})
 
-// function checkAuth (to, from, next) {
-//   if (!this.$store.state.loggedIn) {
-//     next('/login')  // they are not authorized, so redirect to login
-//   } else {
-//     next() // we are authorized, continue on to the requested route
-//   }
-// }
-
-// router.beforeEach((to, from, next) => { 
-//   if (to.matched.some(record => record.meta.requiresAuth)) { 
-//       // this route requires auth, check if logged in 
-//       // if not, redirect to login page. 
-//       if (!checkAuth()) { 
-//           next({ 
-//               path: '/'
-//               // query: { redirect: to.fullPath } 
-//           }) 
-//       } else { 
-//           next() 
-//       } 
-//   } else { 
-//       next() // make sure to always call next()! 
-//   } 
-// }) 
+export default router
