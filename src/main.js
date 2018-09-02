@@ -10,7 +10,7 @@ import 'vuetify/dist/vuetify.min.css'
 Vue.use(Vuetify, {
   theme: {
     primary: '#C4C4C4', // #E53935
-    secondary: '#0a8f70', // #FFCDD2
+    secondary: '#0a8f70' // #FFCDD2
   }
 })
 

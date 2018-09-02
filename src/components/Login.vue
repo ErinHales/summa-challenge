@@ -2,18 +2,18 @@
   <div class="login">
     <NavBar title="Login" />
     <v-form action="" @submit.prevent="login">
-      <v-text-field 
-        color="#0a8f70" 
-        type="text" 
-        v-model="username" 
+      <v-text-field
+        color="#0a8f70"
+        type="text"
+        v-model="username"
         label="Email"
         counter="50"
         :rules="[() => !!username || 'This field is required']"
         required></v-text-field>
-      <v-text-field 
-        color="#0a8f70" 
-        type="text" 
-        v-model="password" 
+      <v-text-field
+        color="#0a8f70"
+        type="text"
+        v-model="password"
         label="Password"
         counter="50"
         :rules="[() => !!password || 'This field is required']"

@@ -3,43 +3,43 @@
     <NavBar title="Sign Up" />
     <Modal v-if="modal" :name="name" :username="username" :email="email" :signup="signup" :popUp="popUp" />
     <v-form action="" @submit.prevent="popUp">
-      <v-text-field 
-        color="#0a8f70" 
-        type="text" 
-        v-model="name" 
+      <v-text-field
+        color="#0a8f70"
+        type="text"
+        v-model="name"
         label="Name"
         counter="50"
         :rules="[rules.required]"
         required></v-text-field>
-      <v-text-field 
-        color="#0a8f70" 
-        type="text" 
-        v-model="username" 
+      <v-text-field
+        color="#0a8f70"
+        type="text"
+        v-model="username"
         label="Username"
         counter="50"
         :rules="[rules.required]"
         required></v-text-field>
-      <v-text-field 
-        color="#0a8f70" 
-        type="text" 
-        v-model="email" 
+      <v-text-field
+        color="#0a8f70"
+        type="text"
+        v-model="email"
         label="Email"
         counter="50"
         :rules="[rules.required]"
         required></v-text-field>
-      <v-text-field 
-        color="#0a8f70" 
-        type="text" 
-        v-model="password1" 
+      <v-text-field
+        color="#0a8f70"
+        type="text"
+        v-model="password1"
         label="Password"
         counter="40"
         :rules="[rules.required, rules.min]"
         hint="At least 12 characters"
         required></v-text-field>
-      <v-text-field 
+      <v-text-field
         color="#0a8f70"
-        type="text" 
-        v-model="password2" 
+        type="text"
+        v-model="password2"
         label="Confirm Password"
         counter="40"
         :rules="[rules.required, rules.passwordMatch]"
@@ -52,13 +52,13 @@
 </template>
 
 <script>
-import NavBar from "./NavBar";
-import Modal from "./Modal";
-import axios from "axios";
+import NavBar from './NavBar'
+import Modal from './Modal'
+import axios from 'axios'
 
 export default {
-  name: "SignUp",
-  data() {
+  name: 'SignUp',
+  data () {
     return {
       name: '',
       username: '',
@@ -72,20 +72,20 @@ export default {
         passwordMatch: v => v === this.password1 || 'Passwords do not match',
         email: v => v.charAt('@') >= -1 || 'Invalid Email'
       }
-    };
+    }
   },
   components: {
     NavBar,
     Modal
   },
   methods: {
-    signup() {
+    signup () {
       let userData = {
         name: this.name,
         username: this.username,
         email: this.email,
         password: this.password1
-      };
+      }
       if (
         this.name &&
         this.username &&
@@ -94,24 +94,24 @@ export default {
         this.password1 === this.password2 &&
         this.password1.length >= 12
       ) {
-        axios.post("/api/newuser", userData).then(response => {
+        axios.post('/api/newuser', userData).then(response => {
           this.$store.commit({
-            type: "setUserData",
+            type: 'setUserData',
             data: response.data[0]
-          });
+          })
           this.$store.commit({
-            type: "toggleLogin",
+            type: 'toggleLogin',
             toggle: true
-          });
-          window.location.hash = "#/users";
-        });
+          })
+          window.location.hash = '#/users'
+        })
       }
     },
-    popUp() {
-      this.modal = !this.modal;
+    popUp () {
+      this.modal = !this.modal
     }
   }
-};
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
