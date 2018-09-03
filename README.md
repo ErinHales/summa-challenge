@@ -1,6 +1,6 @@
 # summa-challenge
 
-> A Vue.js project
+> A Vue.js project built as a coding challenge for Summa Technologies
 
 ## Build Setup
 
@@ -8,14 +8,13 @@
 # install dependencies
 npm install
 
+# create .env file at the root of the project
+
+# create variables inside the .env file called SERVER_PORT with a port number for the server, SESSION_SECRET with randomly generated password, and CONNECTION_STRING with a postgreSQL connection string
+
 # serve with hot reload at localhost:8080
 npm run dev
 
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
 ```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
