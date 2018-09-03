@@ -2,7 +2,7 @@
   <div class="signup">
     <NavBar title="Sign Up" />
     <Modal v-if="modal" :name="name" :username="username" :email="email" :signup="signup" :popUp="popUp" />
-    <v-form action="" @submit.prevent="popUp">
+    <v-form action="" @submit.prevent="popUp" lazy-validation>
       <v-text-field
         color="#0a8f70"
         type="text"
@@ -25,7 +25,7 @@
         v-model="email"
         label="Email"
         counter="50"
-        :rules="[rules.required]"
+        :rules="[rules.required, rules.email]"
         required></v-text-field>
       <v-text-field
         color="#0a8f70"
@@ -66,11 +66,12 @@ export default {
       password1: '',
       password2: '',
       modal: false,
+      validEmail: false,
       rules: {
         required: value => !!value || 'Required.',
         min: v => v.length >= 12 || 'Min 12 characters',
         passwordMatch: v => v === this.password1 || 'Passwords do not match',
-        email: v => v.charAt('@') >= -1 || 'Invalid Email'
+        email: v => this.validate() || 'Invalid Email'
       }
     }
   },
@@ -87,12 +88,11 @@ export default {
         password: this.password1
       }
       if (
-        this.name &&
-        this.username &&
-        this.email &&
-        this.password1 &&
-        this.password1 === this.password2 &&
-        this.password1.length >= 12
+        this.name !== '' &&
+        this.username !== '' &&
+        this.validEmail === true &&
+        this.password1.length >= 12 &&
+        this.password1 === this.password2
       ) {
         axios.post('/api/newuser', userData).then(response => {
           this.$store.commit({
@@ -108,7 +108,22 @@ export default {
       }
     },
     popUp () {
-      this.modal = !this.modal
+      if (
+        this.name !== '' &&
+        this.username !== '' &&
+        this.validEmail === true &&
+        this.password1.length >= 12 &&
+        this.password1 === this.password2
+      ) {
+        this.modal = !this.modal
+      }
+    },
+    validate () {
+      if (this.email.indexOf('@') >= 0 && this.email.indexOf('.com') === this.email.length - 4) {
+        this.validEmail = true
+        return true
+      }
+      return false
     }
   }
 }

@@ -21,7 +21,6 @@
       <v-btn block type="submit" color="#0a8f70">LOG IN</v-btn>
       <h5>Don't have an account? <router-link to="/signup" class="link">Sign Up</router-link></h5>
     </v-form>
-    <!-- <router-link to="/users">Login</router-link> -->
   </div>
 </template>
 
