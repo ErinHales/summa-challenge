@@ -1,7 +1,7 @@
 <template>
   <div class="navBar">
     <h2>{{title}}</h2>
-    <button v-if="loggedIn" @click="logout">Logout</button>
+    <button v-if="loggedIn" @click="logout">Logout<font-awesome-icon icon="angle-double-right" class="arrow" /></button>
   </div>
 </template>
 
@@ -38,11 +38,12 @@ export default {
 .navBar {
   width: 100vw;
   height: 100px;
-  background-color: #c4c4c4;
+  background-color: #025670;
   margin-top: 0px;
 }
 h2 {
   text-align: center;
+  color: white;
   position: absolute;
   top: 20px;
   width: 100vw;
@@ -50,12 +51,19 @@ h2 {
 }
 button {
   float: right;
-  background: transparent;
+  background: #FFA202;
+  padding: 5px;
+  padding-left: 8px;
+  border-radius: 3px;
+  color: white;
   border: none;
   margin: 60px 40px;
   outline: none;
 }
 button:hover {
   cursor: pointer;
+}
+.arrow {
+  margin: 0px 5px;
 }
 </style>

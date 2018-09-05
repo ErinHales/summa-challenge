@@ -14,9 +14,12 @@ export default {
 
 <style>
 @import url('https://fonts.googleapis.com/css?family=Lato');
-
-body {
-  margin: 0px;
-  font-family: "Lato", sans-serif;
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease-out;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>

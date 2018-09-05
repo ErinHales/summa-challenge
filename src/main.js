@@ -6,6 +6,9 @@ import router from './router'
 import Vuetify from 'vuetify'
 import { store } from './store'
 import 'vuetify/dist/vuetify.min.css'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faCoffee, faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 Vue.use(Vuetify, {
   theme: {
@@ -13,6 +16,10 @@ Vue.use(Vuetify, {
     secondary: '#0a8f70' // #FFCDD2
   }
 })
+
+library.add(faCoffee, faAngleDoubleRight)
+
+Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.config.productionTip = false
 

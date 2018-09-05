@@ -1,10 +1,13 @@
 <template>
+<transition name="fade">
   <div class="signup">
     <NavBar title="Sign Up" />
-    <Modal v-if="modal" :name="name" :username="username" :email="email" :signup="signup" :popUp="popUp" />
+    <transition name="fade">
+      <Modal v-if="modal" :name="name" :username="username" :email="email" :signup="signup" :popUp="popUp" />
+    </transition>
     <v-form action="" @submit.prevent="popUp" lazy-validation>
       <v-text-field
-        color="#0a8f70"
+        color="#00BFFE"
         type="text"
         v-model="name"
         label="Name"
@@ -12,7 +15,7 @@
         :rules="[rules.required]"
         required></v-text-field>
       <v-text-field
-        color="#0a8f70"
+        color="#00BFFE"
         type="text"
         v-model="username"
         label="Username"
@@ -20,7 +23,7 @@
         :rules="[rules.required]"
         required></v-text-field>
       <v-text-field
-        color="#0a8f70"
+        color="#00BFFE"
         type="text"
         v-model="email"
         label="Email"
@@ -28,7 +31,7 @@
         :rules="[rules.required, rules.email]"
         required></v-text-field>
       <v-text-field
-        color="#0a8f70"
+        color="#00BFFE"
         type="text"
         v-model="password1"
         label="Password"
@@ -37,7 +40,7 @@
         hint="At least 12 characters"
         required></v-text-field>
       <v-text-field
-        color="#0a8f70"
+        color="#00BFFE"
         type="text"
         v-model="password2"
         label="Confirm Password"
@@ -45,10 +48,11 @@
         :rules="[rules.required, rules.passwordMatch]"
         hint="At least 12 characters"
         required></v-text-field>
-      <v-btn block color="#0a8f70" type="submit">Create Account</v-btn>
-      <h5>Already have an account? <router-link to="/" class="link">Login</router-link></h5>
+      <h5>Already have an account? <router-link to="/" class="link">Login<font-awesome-icon icon="angle-double-right" class="arrow" /></router-link></h5>
+      <v-btn block color="#00BFFE" type="submit" class="submit">Create Account</v-btn>
     </v-form>
   </div>
+</transition>
 </template>
 
 <script>
@@ -116,6 +120,8 @@ export default {
         this.password1 === this.password2
       ) {
         this.modal = !this.modal
+      } else {
+        alert("You must fill in all fields!")
       }
     },
     validate () {
@@ -135,43 +141,34 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: #025670;
+  height: 100vh;
 }
-form {
+.v-form {
   display: flex;
   flex-direction: column;
-  width: 50vw;
+  width: 40vw;
+  height: 80vh;
   justify-content: center;
   align-items: center;
-  background-color: #c4c4c4;
-  padding: 10px 30px;
-  margin: 30px 0px;
+  background-color: white;
+  overflow: hidden;
+  border-radius: 5px;
+  padding-top: 10px;
 }
-h3 {
-  font-weight: 200;
-  font-size: 12px;
-  float: left;
-}
-input {
-  background: transparent;
-  border: 1px solid black;
-  padding: 5px;
-  width: 40%;
-}
-button {
-  background-color: #0a8f70;
-  padding: 10px;
-  margin: 30px 0px;
-  outline: none;
-  border: none;
-  width: 40%;
-}
-button:hover {
-  cursor: pointer;
-}
-h5 {
-  margin-bottom: 15px;
+.submit {
+  position: relative;
+  top: 6px;
+  color: white;
 }
 .link {
-  color: black;
+  color: white;
+  background-color: #FFA202;
+  padding: 5px;
+  text-decoration: none;
+  border-radius: 3px;
+}
+.arrow {
+  margin: 0px 5px;
 }
 </style>

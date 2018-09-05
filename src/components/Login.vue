@@ -1,27 +1,31 @@
 <template>
+<transition name="fade">
   <div class="login">
-    <NavBar title="Login" />
-    <v-form action="" @submit.prevent="login">
+    <NavBar title="LOG IN" />
+    <v-form action="" @submit.prevent="login" class="form">
       <v-text-field
-        color="#0a8f70"
+        color="#00BFFE"
         type="text"
         v-model="username"
         label="Email"
         counter="50"
+        class="input"
         :rules="[() => !!username || 'This field is required']"
         required></v-text-field>
       <v-text-field
-        color="#0a8f70"
+        color="#00BFFE"
         type="text"
         v-model="password"
         label="Password"
         counter="50"
+        class="input"
         :rules="[() => !!password || 'This field is required']"
         required></v-text-field>
-      <v-btn block type="submit" color="#0a8f70">LOG IN</v-btn>
-      <h5>Don't have an account? <router-link to="/signup" class="link">Sign Up</router-link></h5>
+        <h5>Don't have an account? <router-link to="/signup" class="link">Sign Up<font-awesome-icon icon="angle-double-right" class="arrow" /></router-link></h5>
+      <v-btn block type="submit" color="#00BFFE" class="submit">LOG IN</v-btn>
     </v-form>
   </div>
+</transition>
 </template>
 
 <script>
@@ -67,47 +71,40 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
 .login {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: #025670;
+  height: 100vh;
 }
-form {
+.v-form {
   display: flex;
   flex-direction: column;
-  width: 50vw;
+  width: 40vw;
+  height: 60vh;
   justify-content: center;
   align-items: center;
-  background-color: #c4c4c4;
-  padding: 30px;
+  background-color: white;
   margin-top: 50px;
+  overflow: hidden;
+  border-radius: 5px;
+  padding-top: 50px;
 }
-h3 {
-  font-weight: 200;
-  font-size: 12px;
-  float: left;
-}
-input {
-  background: transparent;
-  border: 1px solid black;
-  padding: 5px;
-  width: 40%;
-}
-button {
-  background-color: #0a8f70;
-  padding: 10px;
-  margin: 30px 0px;
-  outline: none;
-  border: none;
-  width: 40%;
-}
-button:hover {
-  cursor: pointer;
-}
-h5 {
-  margin-bottom: 70px;
+.submit {
+  position: relative;
+  top: 10px;
+  color: white;
 }
 .link {
-  color: black;
+  color: white;
+  background-color: #FFA202;
+  padding: 5px;
+  text-decoration: none;
+  border-radius: 3px;
+}
+.arrow {
+  margin: 0px 5px;
 }
 </style>

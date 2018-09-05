@@ -1,14 +1,14 @@
 <template>
   <div class="modal">
     <div>
-      <h3>Create Account</h3>
+      <h3>Account Information</h3>
       <p>Name: {{name}}</p>
       <p>Username: {{username}}</p>
       <p>Email: {{email}}</p>
       <h3>Is this information correct?</h3>
       <div>
-        <v-btn block color="white" @click="signup">Confirm</v-btn>
-        <v-btn block color="white" @click="popUp">Nope</v-btn>
+        <v-btn block color="#FFA202" @click="signup">Confirm</v-btn>
+        <v-btn block color="#FFA202" @click="popUp">Nope</v-btn>
       </div>
     </div>
   </div>
@@ -26,7 +26,7 @@ export default {
 .modal {
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0,0,0,0.7);
   position: absolute;
   top: 0px;
   display: flex;
@@ -36,7 +36,7 @@ export default {
 }
 .modal > div {
   width: 40vw;
-  background-color: #0a8f70;
+  background-color: white;
   padding: 50px;
   text-align: center;
 }
