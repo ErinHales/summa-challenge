@@ -3,7 +3,6 @@ module.exports = {
     let { name, username, email, password } = req.body;
     req.session.user = { name, username, email };
     bcrypt.hash(password, null, null, (err, hash) => {
-      console.log(hash);
       req.app.get("db").create_new_user([name, username, email, hash]).then(response => {
         res.status(201).send(response);
       }).catch(err => {
@@ -15,7 +14,6 @@ module.exports = {
   login: (req, res, bcrypt) => {
     let { email, password } = req.params;
     req.app.get("db").find_user(email).then(response => {
-      console.log(response);
       if (!response[0]) {
         res.status(200).send('Username does not exist');
       } else {

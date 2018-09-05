@@ -121,7 +121,7 @@ export default {
       ) {
         this.modal = !this.modal
       } else {
-        alert("You must fill in all fields!")
+        alert('You must fill in all fields!')
       }
     },
     validate () {

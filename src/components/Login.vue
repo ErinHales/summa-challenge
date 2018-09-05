@@ -46,10 +46,9 @@ export default {
   methods: {
     login () {
       axios.get(`/api/user/${this.username}/${this.password}`).then(response => {
-        console.log(response)
-        if(response.data === 'Username does not exist') {
+        if (response.data === 'Username does not exist') {
           alert('Email does not exist. Try again or go to sign up page')
-        } else if(response.data === 'Password did not match the email') {
+        } else if (response.data === 'Password did not match the email') {
           alert('Incorrect password. Try again or go to sign up page.')
         } else {
           this.$store.commit({
@@ -62,23 +61,6 @@ export default {
           })
           window.location.hash = '#/users'
         }
-        // if (!response.data[0]) {
-        //   alert('Username does not exist. Try again or go to sign up page.')
-        // } else {
-        //   if (response.data[0].password === this.password) {
-        //     this.$store.commit({
-        //       type: 'setUserData',
-        //       data: response.data[0]
-        //     })
-        //     this.$store.commit({
-        //       type: 'toggleLogin',
-        //       toggle: true
-        //     })
-        //     window.location.hash = '#/users'
-        //   } else {
-        //     alert('Password is not correct, try again.')
-        //   }
-        // }
       })
     }
   }
