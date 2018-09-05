@@ -2,6 +2,7 @@ const express = require("express")
 const bodyParser = require("body-parser")
 const massive = require("massive")
 const session = require("express-session")
+const bcrypt = require("bcrypt-nodejs")
 require("dotenv").config()
 
 const loginCntrl = require("./controllers/login_controller");
@@ -28,8 +29,8 @@ app.use(session({
 }));
 
 // Login, sign up, logout
-app.post('/api/newuser', loginCntrl.signUp)
-app.get('/api/user/:email', loginCntrl.login)
+app.post('/api/newuser', (req, res) => loginCntrl.signUp(req, res, bcrypt))
+app.get('/api/user/:email/:password', (req, res) => loginCntrl.login(req, res, bcrypt))
 app.put('/api/logout', loginCntrl.logout)
 
 // Users

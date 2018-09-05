@@ -1,19 +1,30 @@
 module.exports = {
-  signUp: (req, res) => {
+  signUp: (req, res, bcrypt) => {
     let { name, username, email, password } = req.body;
-    req.session.user = req.body;
-    req.app.get("db").create_new_user([name, username, email, password]).then(response => {
-      res.status(201).send(response);
-    }).catch(err => {
-      res.status(401);
-      console.log(err);
+    req.session.user = { name, username, email };
+    bcrypt.hash(password, null, null, (err, hash) => {
+      console.log(hash);
+      req.app.get("db").create_new_user([name, username, email, hash]).then(response => {
+        res.status(201).send(response);
+      }).catch(err => {
+        res.status(401);
+        console.log(err);
+      })
     })
   },
-  login: (req, res) => {
-    let { email } = req.params;
+  login: (req, res, bcrypt) => {
+    let { email, password } = req.params;
     req.app.get("db").find_user(email).then(response => {
-      req.session.user = response[0];
-      res.status(200).send(response);
+      console.log(response);
+      if (!response[0]) {
+        res.status(200).send('Username does not exist');
+      } else {
+        let { name, username, email, password: bcrypt_password } = response[0]
+        req.session.user = { name, username, email };
+        bcrypt.compare(password, bcrypt_password, (error, response) => {
+          (response ? res.status(200).send(req.session.user) : res.send('Password did not match the email'))
+        })
+      }
     }).catch(err => {
       res.status(401);
       console.log(err);
