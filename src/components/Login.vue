@@ -108,4 +108,19 @@ export default {
 .v-input {
   width: 60%;
 }
+@media (max-width: 1000px) {
+  .v-form {
+    width: 60%;
+  }
+}
+@media (max-width: 700px) {
+  .v-form {
+    width: 80%;
+  }
+}
+@media (max-width: 500px) {
+  .v-input {
+    width: 80%;
+  }
+}
 </style>

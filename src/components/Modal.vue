@@ -35,9 +35,19 @@ export default {
   z-index: 1000;
 }
 .modal > div {
-  width: 40vw;
+  width: 43vw;
   background-color: white;
   padding: 50px;
   text-align: center;
+}
+@media (max-width: 1000px) {
+  .modal > div {
+    width: 55%;
+  }
+}
+@media (max-width: 700px) {
+  .modal > div {
+    width: 85%;
+  }
 }
 </style>

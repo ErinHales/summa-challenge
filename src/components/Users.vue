@@ -52,8 +52,12 @@ h3 {
   float: left;
 }
 .loggedInUser {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+}
+.loggedInUser > div {
   width: 60vw;
-  margin-left: 20vw;
 }
 .displayUsers {
   display: flex;
@@ -62,5 +66,35 @@ h3 {
 }
 .displayUsers > div {
   width: 25vw;
+}
+@media (max-width: 1200px) {
+  .displayUsers > div {
+    width: 30vw;
+  }
+}
+@media (max-width: 1000px) {
+  .loggedInUser > div {
+    width: 70%;
+  }
+  .displayUsers > div {
+    width: 65%;
+  }
+}
+@media (max-width: 700px) {
+  .loggedInUser > div {
+    width: 80%;
+  }
+  .displayUsers > div {
+    width: 75%;
+  }
+}
+@media (max-width: 500px) {
+  .loggedInUser > div {
+    width: 100%;
+    margin: 0px;
+  }
+  .displayUsers > div {
+    width: 100vw;
+  }
 }
 </style>

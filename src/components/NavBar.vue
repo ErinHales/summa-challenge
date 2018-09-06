@@ -57,7 +57,7 @@ button {
   border-radius: 3px;
   color: white;
   border: none;
-  margin: 60px 40px;
+  margin: 60px 40px 0px 60px;
   outline: none;
 }
 button:hover {
