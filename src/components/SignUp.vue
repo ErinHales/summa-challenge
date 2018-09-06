@@ -29,7 +29,8 @@
         label="Email"
         counter="50"
         :rules="[rules.required, rules.email]"
-        required></v-text-field>
+        required
+        onChange="(e) => checkEmail(e.target.value)"></v-text-field>
       <v-text-field
         color="#00BFFE"
         type="text"
@@ -59,6 +60,7 @@
 import NavBar from './NavBar'
 import Modal from './Modal'
 import axios from 'axios'
+import { debounce } from 'lodash'
 
 export default {
   name: 'SignUp',
@@ -76,8 +78,18 @@ export default {
         min: v => v.length >= 12 || 'Min 12 characters',
         passwordMatch: v => v === this.password1 || 'Passwords do not match',
         email: v => this.validate() || 'Invalid Email'
+        // unique: v => this.checkEmail() || 'Email must be unique'
       }
     }
+  },
+  watch: {
+    email: debounce((email) => {
+      axios.get(`/api/finduser/${email}`).then(response => {
+        if (response.data[0]) {
+          alert('Email must be unique!')
+        }
+      })
+    }, 500)
   },
   components: {
     NavBar,
@@ -170,5 +182,9 @@ export default {
 }
 .arrow {
   margin: 0px 5px;
+}
+.v-input {
+  width: 60%;
+  margin-bottom: -30px;
 }
 </style>

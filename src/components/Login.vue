@@ -105,4 +105,7 @@ export default {
 .arrow {
   margin: 0px 5px;
 }
+.v-input {
+  width: 60%;
+}
 </style>

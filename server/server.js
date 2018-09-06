@@ -36,6 +36,7 @@ app.put('/api/logout', loginCntrl.logout)
 // Users
 app.get('/api/users', userCntrl.getUsers)
 app.get('/api/user', userCntrl.getUser)
+app.get('/api/finduser/:email', userCntrl.findUser)
 
 const port = SERVER_PORT;
 
