@@ -86,6 +86,7 @@ export default {
     email: debounce((email) => {
       axios.get(`/api/finduser/${email}`).then(response => {
         if (response.data[0]) {
+          this.validEmail = false
           alert('Email must be unique!')
         }
       })
